@@ -1,4 +1,4 @@
-runtime/*
+runtime/
 !runtime/.gitkeep
 
 build/*.env
