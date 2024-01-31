@@ -3,7 +3,5 @@ services:
   web:
     build:
       target: dev
-      context: ..
-      dockerfile: build/golang/Dockerfile
     volumes:
       - ../:/app

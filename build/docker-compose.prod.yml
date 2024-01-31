@@ -3,5 +3,3 @@ services:
   web:
     build:
       target: prod
-      context: ..
-      dockerfile: build/golang/Dockerfile

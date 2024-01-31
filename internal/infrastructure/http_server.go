@@ -3,7 +3,6 @@ package infrastructure
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"github.com/ActiveBears/Semester/config"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -14,18 +13,11 @@ import (
 )
 
 func RunHttpServer(conf config.Config, handler http.Handler, lg *log.Logger) {
-	addr := fmt.Sprintf(
-		"%s:%s",
-		conf.Server.HttpHost,
-		conf.Server.HttpPort,
-	)
-
 	srv := http.Server{
-		Addr:    addr,
+		Addr:    ":80",
 		Handler: handler,
 	}
 
-	lg.Printf("Starting server %s", addr)
 	if err := srv.ListenAndServe(); err != nil || !errors.Is(err, http.ErrServerClosed) {
 		lg.Fatalln(err)
 	}

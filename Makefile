@@ -8,22 +8,27 @@ init-env:
     	$(shell cp $(BUILD_PATH)/.env.example $(BUILD_PATH)/.env)
     endif
 
-dev-build: init-env $(DOCKER_BASE) $(DOCKER_DEV)
+build-dev: init-env $(DOCKER_BASE) $(DOCKER_DEV)
 	docker compose \
     	-f $(DOCKER_BASE) \
     	-f $(DOCKER_DEV) build --pull
 
-dev-run: $(DOCKER_BASE) $(DOCKER_DEV)
+run-dev: $(DOCKER_BASE) $(DOCKER_DEV)
 	docker compose \
 		-f $(DOCKER_BASE) \
-		-f $(DOCKER_DEV) up -d
+		-f $(DOCKER_DEV) up
 
-prod-build: $(DOCKER_BASE) $(DOCKER_PROD)
+build-prod: $(DOCKER_BASE) $(DOCKER_PROD)
 	docker compose \
 		-f $(DOCKER_BASE) \
 		-f $(DOCKER_PROD) build --pull
 
-prod-run: $(DOCKER_BASE) $(DOCKER_PROD)
+run-prod: $(DOCKER_BASE) $(DOCKER_PROD)
 	docker compose \
     	-f $(DOCKER_BASE) \
     	-f $(DOCKER_PROD) up -d
+
+prune:
+	docker compose \
+	 -f $(DOCKER_BASE) \
+     -f $(DOCKER_PROD) down --remove-orphans

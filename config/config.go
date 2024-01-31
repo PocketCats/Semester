@@ -1,16 +1,11 @@
 package config
 
-import (
-	"github.com/caarlos0/env/v10"
-)
+import "github.com/caarlos0/env/v10"
 
 type Config struct {
-	Server struct {
-		HttpPort string `env:"HTTP_PORT"`
-		HttpHost string `env:"HTTP_HOST"`
-	}
 	Database struct {
 		Driver   string `env:"DB_DRIVER"`
+		Host     string `env:"DB_HOST"`
 		Name     string `env:"DB_NAME"`
 		Port     string `env:"DB_PORT"`
 		User     string `env:"DB_USER"`
