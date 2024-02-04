@@ -13,7 +13,7 @@ services:
 
   db:
     volumes:
-      - ./postgres:/docker-entrypoint-initdb.d
+      - ./postgres/dump:/docker-entrypoint-initdb.d
 
   db-admin:
     container_name: db_panel
