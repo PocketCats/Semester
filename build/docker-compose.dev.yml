@@ -5,3 +5,34 @@ services:
       target: dev
     volumes:
       - ../:/app
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 4G
+
+  db:
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d
+
+  db-admin:
+    container_name: db_panel
+    image: dpage/pgadmin4:7.2
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@handy.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin_handy"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - ./postgres/pgadm:/var/lib/pgadmin
+    user: ':'
+    ports:
+      - "8888:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+
+volumes:
+  db-admin:

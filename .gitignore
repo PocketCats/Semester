@@ -2,3 +2,6 @@ runtime/
 !runtime/.gitkeep
 
 build/*.env
+
+build/postgres/pgadm
+build/postgres/pgdata
