@@ -3,5 +3,4 @@ runtime/
 
 build/*.env
 
-build/postgres/pgadm
-build/postgres/pgdata
+.deploy/build/postgres/pgdata

@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  web:
+    build:
+      target: dev
+    volumes:
+      - ../../:/app
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 4G

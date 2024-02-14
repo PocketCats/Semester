@@ -13,11 +13,12 @@ type Config struct {
 	}
 }
 
-func NewConfig() Config {
+func NewConfig() *Config {
 	conf := Config{}
+
 	if err := env.Parse(&conf); err != nil {
 		panic("Warn: Env variables should be provided in OS environment before starting application\n" + err.Error())
 	}
 
-	return conf
+	return &conf
 }
