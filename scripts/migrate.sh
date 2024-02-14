@@ -112,8 +112,8 @@ build_container() {
         docker stop migrator
         docker rm migrator
         docker build \
-            --build-arg USER_UID=$(id -u) \
-            --build-arg USER_GID=$(id -g) \
+            --build-arg USER_UID="$(id -u)" \
+            --build-arg USER_GID="$(id -g)" \
             -t migrator \
             -f "$build_path/migrator/Dockerfile" \
             .deploy > /dev/null
