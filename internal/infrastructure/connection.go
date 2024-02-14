@@ -11,7 +11,7 @@ type Connection struct {
 	conn *sql.DB
 }
 
-func NewConnection(c config.Config) Connection {
+func NewConnection(c *config.Config) *Connection {
 	dsn := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		c.Database.Host, c.Database.Port, c.Database.User, c.Database.Password, c.Database.Name,
@@ -26,5 +26,5 @@ func NewConnection(c config.Config) Connection {
 		panic("can't ping db: " + err.Error())
 	}
 
-	return Connection{conn}
+	return &Connection{conn}
 }

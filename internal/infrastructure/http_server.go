@@ -1,9 +1,8 @@
 package infrastructure
 
 import (
-	"bytes"
 	"errors"
-	"github.com/ActiveBears/Semester/config"
+	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"log"
@@ -12,14 +11,14 @@ import (
 	"time"
 )
 
-func RunHttpServer(conf config.Config, handler http.Handler, lg *log.Logger) {
+func RunHttpServer(lg *log.Logger, handler http.Handler) {
 	srv := http.Server{
 		Addr:    ":80",
 		Handler: handler,
 	}
 
-	if err := srv.ListenAndServe(); err != nil || !errors.Is(err, http.ErrServerClosed) {
-		lg.Fatalln(err)
+	if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		lg.Fatalf("Server shutdown without grace: %s", err)
 	}
 }
 
@@ -38,16 +37,12 @@ func NewRouter() http.Handler {
 	)
 
 	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		bytes.NewBufferString("Hello, world!").WriteTo(w)
+		fmt.Fprint(w, "Hello, world!")
 	})
 
 	return router
 }
 
 func NewLogger() *log.Logger {
-	return log.New(
-		os.Stdout,
-		"[semester]: ",
-		log.Ldate|log.Ltime|log.Lshortfile,
-	)
+	return log.New(os.Stdout, "[semester]::", log.Ldate|log.Ltime|log.Lshortfile)
 }

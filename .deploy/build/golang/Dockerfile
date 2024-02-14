@@ -1,7 +1,7 @@
 FROM golang:alpine3.19 as base
 
-ARG USER_UID=10001
-ARG USER_NAME=appuser
+ARG USER_UID
+ARG USER_NAME
 
 RUN adduser \
     --disabled-password \
@@ -21,7 +21,8 @@ ENV GO111MODULE=on
 RUN go mod download && go mod verify
 
 COPY --from=cosmtrek/air:v1.45.0 /go/bin/air /go/bin/air
-ENTRYPOINT [ "air", "-c", "./build/golang/.air.toml" ]
+
+ENTRYPOINT [ "air", "-c", ".deploy/build/golang/.air.toml" ]
 
 FROM base as builder
 
